@@ -31,7 +31,7 @@ body {
 .navbar-header .navbar-brand:hover {
 	    color: gold;
 }
-#header{
+header{
  width: 100%;
  height: 270px;
  background: url(img/header.jpg) no-repeat center;
