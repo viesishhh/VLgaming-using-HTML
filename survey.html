@@ -1,33 +1,54 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
 	<title>VLgaming</title>
-	<link rel="icon" href="favicon.ico" sizes="16x16" type="image/png">
-  <link href="css/normalize.css" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="icon" href="favicon.ico" sizes="16x16" type="./image/png">
+  <link href="./css/normalize.css" rel="stylesheet">
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css"/>
 
-  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="./js/jquery-3.1.1.min.js"></script>
+  <script src="./js/bootstrap.js"> </script>
+  <script src="./js/notmy.js"></script>
+  <script>
+		$(document).ready(function(){
+			$(".errorMsg").hide();
+			$(".successMsg").hide();
+			$("#send").click(function(){
+			
+				//ja poga tiek nospiesta vēlreiz likvidēt esošos li tagus un parādīt jaunos.
+				$(".warningMsg li").remove();
 
-  <script type="text/javascript">
-	 $(document).ready(function(){
+				//paziņojumi
+				var emptyFieldMsg = "Lauks ir tukšs lūdzu aizpildiet šo lauku!";
+				var letterFieldMsg = "Lūdzu ievadiet tikai burtus!";
+				var phoneFieldMsg = "Lūdzu ievadiet tikai ciparus!";
+				var mailFieldMsg = "Lūdzu e-pastu ievadiet šādā formā, piemēram, epasts@epasts.lv!";
+				
+				isEmpty(emptyFieldMsg, "#fnm, #snm",".checkbox, #sel1, #tel, #mail");
+				onlyText(letterFieldMsg, "#fnm, #snm",".checkbox, #sel1, #tel, #mail");
+				isPhone(phoneFieldMsg, "#tel", ".checkbox, #sel1, #fnm, #snm, #mail");
+				isMail(mailFieldMsg, "#mail",".checkbox, #sel1, #tel, #fnm, #snm");
 
-	 $("#error").hide();
+				
+				
+				$(".errorMsg").fadeIn('slow');
 
-  	 $("#fnm").keyup(function(e){
-  			
-		if($("#fnm").val() != $( "<input>" ).is( ":text" )){
-  			$("#error").show();
-			}
-			else{
-			$("#error").hide();
-			}
-  		});
-   
-	 });
+				if($(".warningMsg li").is(":visible") == true){
+					$(".successMsg").hide();
+				}
+				else{
+					$(".errorMsg").hide();	
+					$(".successMsg").show();
+					resetFields();
+
+				}	
+
+			});	
+		});
 	</script>
 
 </head>
@@ -77,46 +98,58 @@
 <aside class="col-md-2"></aside>
 <div class="col-md-8">
 	  <h1 class="text-center">Anketa</h1>
-<div class="container">
-	<div class="row">
-	<form class="form-horizontal">
-
-	<div class="form-group">
-      	<label class="control-label col-md-1" for="fnm">Vārds:</label>
-      <div class="col-md-7">          
-        <input type="text" class="form-control" id="fnm" placeholder="Ievadi vārdu" required></br>
-        <div class="alert alert-danger" id = "error">
-  		Lauks ir ievadīts nepareizi!
+	    <div class="alert alert-danger errorMsg">
+  		<strong>Kļūdas!</strong>
+  		<ul class="warningMsg"></ul>
       	</div>
+      	<div class="alert alert-success successMsg">
+  		Izdevās!
+      	</div>
+<div class="container-fluid">
+	<form class="form-horizontal">
+	<fieldset>
+	<div class="row">
+	<div class="form-group">
+      	<label class="control-label col-md-2" for="fnm">Vārds:</label>
+      <div class="col-md-9">          
+        <input type="text" class="form-control" id="fnm" name="fnm" placeholder="Ievadi vārdu"></br>
       </div>
     </div>
+	</div>
 	
+	<div class="row">
 	<div class="form-group">
-      	<label class="control-label col-md-1" for="snm">Uzvārds:</label>
-      <div class="col-md-7">          
-        <input type="text" class="form-control" id="snm" placeholder="Ievadi uzvārdu" required><br>
+      	<label class="control-label col-md-2" for="snm">Uzvārds:</label>
+      <div class="col-md-9">          
+        <input type="text" class="form-control" id="snm" name="snm" placeholder="Ievadi uzvārdu"><br>
       </div>
     </div>
-
+	</div>
+	
+	<div class="row">
   	<div class="form-group">
-      	<label class="control-label col-md-1" for="tel">Telefons:</label>
-      <div class="col-md-7">          
-        <input type="tel" class="form-control" id="tel" placeholder="Ievadi numuru" required><br>
+      	<label class="control-label col-md-2" for="tel">Telefons:</label>
+      <div class="col-md-9">          
+        <input type="numb" class="form-control" id="tel" name="tel" placeholder="Ievadi numuru"><br>
       </div>
     </div>
-
+	</div>
+	
+	<div class="row">
    	<div class="form-group">
-      	<label class="control-label col-md-1" for="email">e-pasts:</label>
-      <div class="col-md-7">          
-        <input type="email" class="form-control" id="email" placeholder="Ievadi e-pastu" required><br>
+      	<label class="control-label col-md-2" for="mail">e-pasts:</label>
+      <div class="col-md-9">          
+        <input type="mail" class="form-control" id="mail" placeholder="Ievadi e-pastu"><br>
       </div>
     </div>
-
+	</div>
+	
+	<div class="row">
 	<div class="form-group">
-		<label class="control-label col-md-1" for="sel1">valsts: </label>
-	  <div class="col-md-7">
+		<label class="control-label col-md-2" for="sel1">valsts: </label>
+	  <div class="col-md-9">
 		<select class="form-control" id="sel1">
-			<option value="">Izvēlne...</option>
+			<option value="1">Izvēlne...</option>
 			<option value="Afganistan">Afghanistan</option>
 			<option value="Albania">Albania</option>
 			<option value="Algeria">Algeria</option>
@@ -368,26 +401,33 @@
 		<br>
 		</div>
 	</div>
-
+	</div>
+	
+	<div class="row">
    	<div class="form-group">
-   		<label class="control-label col-md-1">valodas: </label>
-   	<div class="col-md-7">
+   		<label class="control-label col-md-2">valodas: </label>
+   	<div class="col-md-9">
 		<div class="checkbox">
-			<label class="checkbox-inline"><input type="checkbox" value="lv">latviešu</label>
-			<label class="checkbox-inline"><input type="checkbox" value="en">angļu</label>
-		  <label class="checkbox-inline"><input type="checkbox" value="ru">krievu</label>
-		  <label class="checkbox-inline"><input type="checkbox" value="ot">cita</label>
+			<label class="checkbox-inline"><input type="checkbox" id="lv" value="lv">latviešu</label>
+			<label class="checkbox-inline"><input type="checkbox" id="en" value="en">angļu</label>
+		  <label class="checkbox-inline"><input type="checkbox" id="ru" value="ru">krievu</label>
+		  <label class="checkbox-inline"><input type="checkbox" id="ot" value="ot">cita</label>
 		</div>
 		</div>
-
+	</div>
+	
+	<div class="row">
 	<div class="form-group"> 
-    <div class="col-md-offset-3">
-      <button type="submit" class="btn btn-primary btn-lg">Sūtīt</button>
+	<div class="col-md-9 col-xs-9"></div>
+    <div class="button">
+      <button type="button" class="btn btn-primary btn-lg" id="send">Sūtīt</button>
     </div>
   	</div>
+	</div>
 
 	</div>
 	</div>
+</fieldset>
 	</form>
 </div>
 </div>
