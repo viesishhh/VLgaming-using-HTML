@@ -13,10 +13,12 @@
   <script src="./js/jquery-3.1.1.min.js"></script>
   <script src="./js/bootstrap.js"> </script>
   <script src="./js/notmy.js"></script>
+
   <script>
 		$(document).ready(function(){
 			$(".errorMsg").hide();
 			$(".successMsg").hide();
+
 			$("#send").click(function(){
 			
 				//ja poga tiek nospiesta vēlreiz likvidēt esošos li tagus un parādīt jaunos.
@@ -26,16 +28,16 @@
 				var emptyFieldMsg = "Lauks ir tukšs lūdzu aizpildiet šo lauku!";
 				var letterFieldMsg = "Lūdzu ievadiet tikai burtus!";
 				var phoneFieldMsg = "Lūdzu ievadiet tikai ciparus!";
-				var mailFieldMsg = "Lūdzu e-pastu ievadiet šādā formā, piemēram, epasts@epasts.lv!";
+				var mailFieldMsg = "Lūdzu e-pastu ievadiet šādā formā: epasts@epasts.lv!";
 				
-				isEmpty(emptyFieldMsg, "#fnm, #snm",".checkbox, #sel1, #tel, #mail");
+				isEmpty(emptyFieldMsg, "#fnm, #snm, #tel, #mail", ".checkbox, #sel1");
 				onlyText(letterFieldMsg, "#fnm, #snm",".checkbox, #sel1, #tel, #mail");
 				isPhone(phoneFieldMsg, "#tel", ".checkbox, #sel1, #fnm, #snm, #mail");
 				isMail(mailFieldMsg, "#mail",".checkbox, #sel1, #tel, #fnm, #snm");
 
 				
 				
-				$(".errorMsg").fadeIn('slow');
+				$(".errorMsg").fadeIn(1000);
 
 				if($(".warningMsg li").is(":visible") == true){
 					$(".successMsg").hide();
@@ -43,6 +45,7 @@
 				else{
 					$(".errorMsg").hide();	
 					$(".successMsg").show();
+
 					resetFields();
 
 				}	
@@ -99,11 +102,11 @@
 <div class="col-md-8">
 	  <h1 class="text-center">Anketa</h1>
 	    <div class="alert alert-danger errorMsg">
-  		<strong>Kļūdas!</strong>
+  		<strong>Uzmanību!</strong>
   		<ul class="warningMsg"></ul>
       	</div>
       	<div class="alert alert-success successMsg">
-  		Izdevās!
+  		<strong>Izdevās!</strong> Anketa ir veiksmīga aizsūtīta!
       	</div>
 <div class="container-fluid">
 	<form class="form-horizontal">
@@ -420,7 +423,7 @@
 	<div class="form-group"> 
 	<div class="col-md-9 col-xs-9"></div>
     <div class="button">
-      <button type="button" class="btn btn-primary btn-lg" id="send">Sūtīt</button>
+      <button type="button" class="btn btn-primary btn-lg" id="send" data-toggle="modal" data-target="#myModal">Sūtīt</button>
     </div>
   	</div>
 	</div>
@@ -435,14 +438,31 @@
 </div>
 
 </div>
+
 </main>
 
+
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Izdevās!r</h4>
+        </div>
+        <div class="modal-body">
+          <p>Jūsu anketa ir saņemta!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Aizvērt</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <footer class="panel-footer text-center">
   <p class="text-muted">© 2016 VLgaming.Lv Visas tiesības aizsargātas. Jebkādas informācijas pārpublicēšana pieļaujama tikai ar VLgaming.Lv rakstisku atļauju.</p>
 </footer>
-
-    <script src="js/bootstrap.min.js"></script>
 
 </body>
 </html>
