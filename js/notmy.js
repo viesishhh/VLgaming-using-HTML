@@ -1,7 +1,7 @@
 
 function isEmpty(emptyFieldMsg, findField, exceptField){
 	
-	//each cikls ir atsevišķi lai varētu atdalīt konkrētos laukus.
+
 	$(''+findField+':not('+exceptField+')').each(function(){
 		var fieldNameText = $("label[for='"+this.id+"']");
 		
@@ -16,9 +16,9 @@ function isEmpty(emptyFieldMsg, findField, exceptField){
 }
 
 function onlyText(letterFieldMsg, findField, exceptField) {
-	//each cikls ir atsevišķi lai varētu atdalīt konkrētos laukus.
+
 	$(''+findField+':not('+exceptField+')').each(function(){
-		//only letters and space
+
 		var fieldNameText = $("label[for='"+this.id+"']");
 		
 		errorResult = $(this).val().match(/^[a-zēūīāšķļņA-ZĒŪĪĀŠĶĻŅ\s]*$/);
@@ -34,7 +34,7 @@ function onlyText(letterFieldMsg, findField, exceptField) {
 
 function isPhone(phoneFieldMsg, findField, exceptField){
 $(''+findField+':not('+exceptField+')').each(function(){
-		//only letters and space
+
 		var fieldNameText = $("label[for='"+this.id+"']");
 		
 		errorResult = $(this).val().match(/[0-9-()+]{3,20}/);
@@ -62,11 +62,22 @@ $(''+findField+':not('+exceptField+')').each(function(){
 	});
 }
 
+function isChecked(checkBoxMsg, findField, fieldNameText){
+	var checkButton = $(''+findField+'').is(":checked");
+
+	if(checkButton == false){
+		$(".warningMsg").append("<li><b>"+fieldNameText+" </b>"+checkBoxMsg+"</li>");
+	}
+	else{
+		
+	}
+}
+
 
 function resetFields(){
 	$("input:text").val("");
-	$("input:numb").val("");
-	$("input:mail").val("");
-	$(".checkbox").val("");
-	$("select:sel1").val("1");	
+	$("#tel").val("");
+	$("#mail").val("");
+	$("#sel1").val(1);
+	$("input[type=checkbox]").prop("checked", false);
 }
